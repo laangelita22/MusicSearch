@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="site.css"> -->
+    <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light+Two" rel="stylesheet">
+    <title>Music Search</title>
+
+    <style>
+        .bg-img {
+            padding-bottom: 75px;
+            background-position: 25px;
+            background-repeat: no-repeat;
+            background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDoaKSRZh9CWvdydnVYr6po8Qk2-MtI64jcykFp4HtD8ianNB7Aw");
+        }
+
+        .bg-body {
+            background-size: cover;
+            background-image: url("http://pluspng.com/img-png/winter-background-png-image-28112-600.jpg");
+        }
+
+        p {
+            text-indent: 225px;
+            font-size: 45px;
+            font-family: cursive;
+        }
+
+        br {
+            line-height: 75px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="bg-img">
+            <!-- music notes in header -->
+            <br>
+            <p>Search by any Artist, Song, or Collection</p>
+        </div>
+
+
+
+        <input type="text" id="myInput" placeholder="Search Here">
+        <button class="btn btn-primary">Search</button>
+
+        <select name="limits" id="limit">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="25" selected>25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+        </select>
+
+        <div class="bg-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Title</th>
+                        <th>Album Art</th>
+                        <th>Artist</th>
+                        <th>Collection</th>
+                        <th>Price</th>
+                        <th>Preview</th>
+                    </tr>
+                </thead>
+                <tbody id="tbody">
+                    <!-- Append rows here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+    <script src="app.js"></script>
+    <script>
+        var input = $("#myInput");
+        var limit = $("#limit");
+        var tbody = $("tbody");
+
+        $("button").on("click", function () {
+            tbody.html("");
+
+            var searchTerm = new MusicSearch();
+
+            searchTerm.getResults(input.val(), limit.val(), drawSongs);
+            // search.getResults("Nelly", 25, drawSongs);
+        });
+
+        function drawSongs(songList) {
+            // debugger
+            var counter = 1;
+
+            songList.forEach(function (item) {
+                $(`<tr>
+                        <td>${counter++}</td>
+                        <td>${item.title}</td>                        
+                        <td><img src="${item.albumArt}"></td>
+                        <td>${item.artist}</td>
+                        <td>${item.collection}</td>
+                        <td>$${item.price}</td>
+                        <td><audio controls><source src="${item.preview}"></audio></td>
+                    </tr>`).appendTo(tbody)
+            });
+        };
+
+    </script>
+
+</body>
+
+</html>
