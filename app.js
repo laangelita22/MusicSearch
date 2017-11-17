@@ -1,6 +1,6 @@
 var MusicSearch = (function () {
 
-  
+
     var songs = [];
 
     function MusicSearch() {
@@ -25,8 +25,8 @@ var MusicSearch = (function () {
                     preview: song.previewUrl
                 }
             });
-            console.log("data:", data);
-            console.log("songlist", songList);
+            // console.log("data:", data);
+            console.log("songList", songList);
             callback(songList);
         });
     };
